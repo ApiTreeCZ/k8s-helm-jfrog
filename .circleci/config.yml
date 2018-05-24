@@ -7,10 +7,10 @@ jobs:
       - checkout
       - run:
           name: Docker login
-          command: DOCKER_USER=${JFROG_USER} DOCKER_PASS=${JFROG_PASS} DOCKER_URL=${JFROG_DOCKER_REPO} make docker-login
+          command: DOCKER_USER=${DOCKER_USER} DOCKER_PASS=${DOCKER_PASS} make docker-login
       - run:
           name: Set docker image to workspace
-          command: mkdir -p workspace && echo "${JFROG_DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME}" > workspace/docker-image
+          command: mkdir -p workspace && echo "${DOCKER_USER}/${CIRCLE_PROJECT_REPONAME}" > workspace/docker-image
       - run:
           name: Show docker image
           command: cat workspace/docker-image
@@ -26,7 +26,7 @@ workflows:
   build:
     jobs:
       - create_docker_image:
-          context: apitree-aldo-context
+          context: apitree-dockerhub-context
           filters:
             tags:
               only: /v[0-9]+(\.[0-9]+)*(-.+)?/
