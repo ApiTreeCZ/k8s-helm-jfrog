@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  create_docker_image:
+    working_directory: ~/docker-image
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Docker login
+          command: DOCKER_USER=${JFROG_USER} DOCKER_PASS=${JFROG_PASS} DOCKER_URL=${JFROG_DOCKER_REPO} make docker-login
+      - run:
+          name: Set docker image to workspace
+          command: mkdir -p workspace && echo "${JFROG_DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME}" > workspace/docker-image
+      - run:
+          name: Show docker image
+          command: cat workspace/docker-image
+      - run:
+          name: Docker create image
+          command: DOCKER_IMAGE=$(cat workspace/docker-image) DOCKER_VERSION=${CIRCLE_TAG:1} make docker-build
+      - run:
+          name: Docker push
+          command: DOCKER_IMAGE=$(cat workspace/docker-image) make docker-push
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - create_docker_image:
+          context: apitree-aldo-context
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-.+)?/
+            branches:
+              ignore: /.*/
