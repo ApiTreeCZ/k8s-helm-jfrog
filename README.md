@@ -70,6 +70,10 @@ For this usage, you must set variables:
 * **JFROG_USER** = JFrog login
 * **JFROG_PASS** = JFrog password
 
+Structure project:
+
+* **.helm/chart-name/** - Chart.yaml, etc. **chart-name** is same as name git repository **CIRCLE_PROJECT_REPONAME**
+
 ```yaml
 version: 2
 jobs:
