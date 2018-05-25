@@ -64,6 +64,12 @@ khj helm-deploy
 
 > Example for CircleCI with GitHub release
 
+For this usage, you must set variables:
+
+* **JFROG_HELM_REPO_LOCAL** = URL to your JFrog Helm repository (local)
+* **JFROG_USER** = JFrog login
+* **JFROG_PASS** = JFrog password
+
 ```yaml
 version: 2
 jobs:
@@ -75,13 +81,12 @@ jobs:
       - checkout
       - run:
           name: Package and deploy
-          command: khj helm-all
-          environment:
-            DIRECTORY_CHART=.helm/${CIRCLE_PROJECT_REPONAME}
-            VERSION=${CIRCLE_TAG:1}
-            REPO_URL=${JFROG_HELM_REPO_LOCAL}
-            REPO_USER=${JFROG_USER}
-            REPO_PASS=${JFROG_PASS}
+          command: |
+            DIRECTORY_CHART=.helm/${CIRCLE_PROJECT_REPONAME} \
+            VERSION=${CIRCLE_TAG:1} \
+            REPO_URL=${JFROG_HELM_REPO_LOCAL} REPO_USER=${JFROG_USER} \
+            REPO_PASS=${JFROG_PASS} \
+            khj helm-all
 
 workflows:
   version: 2
