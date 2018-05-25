@@ -76,7 +76,7 @@ helmDeploy() {
     checkRepoUserExist;
     checkRepoPassExist;
     checkRepoUrlExist;
-    TGZ_FILENAME=${DIRECTORY_CHART}-${VERSION}.tgz
+    TGZ_FILENAME=$(basename $DIRECTORY_CHART)-${VERSION}.tgz
     curl -u ${REPO_USER}:${REPO_PASS} -T ${DIRECTORY_CHART}/${TGZ_FILENAME} "${REPO_URL}/${TGZ_FILENAME}"
 
 }
