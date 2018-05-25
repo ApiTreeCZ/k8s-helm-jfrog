@@ -12,7 +12,7 @@ noArg() {
 
 checkDirectoryChart() {
     if [ ! "${DIRECTORY_CHART:-}" ]; then
-        echo "ERROR variable \$VDIRECTORY_CHART is not set"
+        echo "ERROR variable \$DIRECTORY_CHART is not set"
         exit 1
     fi
 }
@@ -54,7 +54,7 @@ helmSetVersion() {
     echo "Helm set version"
     checkDirectoryChart;
     checkVersionExist;
-    sed -i -e 's/{HELM_VERSION}/${VERSION}/g' ${DIRECTORY_CHART}/Chart.yaml
+    sed -i -e "s/{HELM_VERSION}/${VERSION}/g" ${DIRECTORY_CHART}/Chart.yaml
 }
 
 helmShowChart() {

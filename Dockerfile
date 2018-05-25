@@ -5,8 +5,6 @@ LABEL maintainer="Ales Dostal <a.dostal@apitree.cz>"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# COPY ./src /usr/src/app
-
 COPY ./src/khj.sh /usr/local/bin
 RUN mv /usr/local/bin/khj.sh /usr/local/bin/khj
 RUN chmod 777 /usr/local/bin/khj
