@@ -5,7 +5,11 @@ LABEL maintainer="Ales Dostal <a.dostal@apitree.cz>"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY ./src /usr/src/app
+# COPY ./src /usr/src/app
+
+COPY ./src/khj.sh /usr/local/bin
+RUN mv /usr/local/bin/khj.sh /usr/local/bin/khj
+RUN chmod 777 /usr/local/bin/khj
 
 ENV HELM_VERSION="v2.9.0"
 
@@ -16,7 +20,7 @@ ENV INCUBATOR_REPO_URL="https://kubernetes-charts-incubator.storage.googleapis.c
 
 RUN apk add --update ca-certificates \
     && apk add --update -t deps wget \
-    && apk add curl make \
+    && apk add curl make bash \
     && wget -q ${HELM_URL}/${HELM_TARBALL} \
     && tar xzfv ${HELM_TARBALL} \
     && mv ./linux-amd64/helm /usr/local/bin \

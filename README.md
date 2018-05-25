@@ -14,7 +14,7 @@ VERSION=0.1.0-alpha.1 \
 REPO_USER=xxx \
 REPO_PASS=xxx \
 REPO_URL=xxx \
-make helm-all
+khj helm-all
 ```
 
 ### Helm init
@@ -22,7 +22,7 @@ make helm-all
 > Initialize as client only
 
 ```bash
-make helm-init
+khj helm-init
 ```
 
 ### Helm set version
@@ -32,19 +32,19 @@ make helm-init
 ```bash
 DIRECTORY_CHART=helm-dir \
 HELM_VERSION=0.1.0-alpha.1 \
-make helm-set-version
+khj helm-set-version
 ```
 
 ### Helm show Chart.yaml
 
 ```bash
-DIRECTORY_CHART=helm-dir make helm-show-chart
+DIRECTORY_CHART=helm-dir khj helm-show-chart
 ```
 
 ### Helm package
 
 ```bash
-DIRECTORY_CHART=helm-dir make helm-package
+DIRECTORY_CHART=helm-dir khj helm-package
 ```
 
 ### Helm deploy
@@ -57,7 +57,7 @@ VERSION=0.1.0-alpha.1 \
 REPO_USER=xxx \
 REPO_PASS=xxx \
 REPO_URL=xxx \
-make helm-deploy
+khj helm-deploy
 ```
 
 ## Usage in CircleCI 2.0
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - run:
           name: Package and deploy
-          command: make helm-all
+          command: khj helm-all
           environment:
             DIRECTORY_CHART=.helm/${CIRCLE_PROJECT_REPONAME}
             VERSION=${CIRCLE_TAG:1}
