@@ -15,8 +15,11 @@ jobs:
           name: Show docker image
           command: cat workspace/docker-image
       - run:
-          name: Docker create image
-          command: DOCKER_IMAGE=$(cat workspace/docker-image) DOCKER_VERSION=${CIRCLE_TAG:1} make docker-build
+          name: Build docker image
+          command: DOCKER_IMAGE=$(cat workspace/docker-image) make docker-build
+      - run:
+          name: Set docker tag
+          command: DOCKER_IMAGE=$(cat workspace/docker-image) DOCKER_VERSION=${CIRCLE_TAG:1} make docker-tag          
       - run:
           name: Docker push
           command: DOCKER_IMAGE=$(cat workspace/docker-image) make docker-push

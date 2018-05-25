@@ -15,7 +15,11 @@ docker-login:
 
 docker-build:
 	@echo "Build docker image"
-	docker build -t ${DOCKER_IMAGE}:${DOCKER_VERSION} .
+	docker build -t ${DOCKER_IMAGE}:latest .
+
+docker-tag:
+	@echo "Add docker tag"
+	docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${DOCKER_VERSION}
 
 docker-push:
 	@echo "Push to docker repository"

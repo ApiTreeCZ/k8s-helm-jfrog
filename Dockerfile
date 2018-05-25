@@ -16,7 +16,7 @@ ENV INCUBATOR_REPO_URL="https://kubernetes-charts-incubator.storage.googleapis.c
 
 RUN apk add --update ca-certificates \
     && apk add --update -t deps wget \
-    && apk add --update make \
+    && apk add curl make \
     && wget -q ${HELM_URL}/${HELM_TARBALL} \
     && tar xzfv ${HELM_TARBALL} \
     && mv ./linux-amd64/helm /usr/local/bin \
